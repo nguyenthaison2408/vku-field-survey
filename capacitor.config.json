@@ -1,0 +1,17 @@
+{
+  "appId": "com.vku.survey.offline",
+  "appName": "VKU_Survey",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "plugins": {
+    "Camera": {
+      "permissions": [
+        "camera",
+        "photos"
+      ]
+    }
+  },
+  "server": {
+    "androidScheme": "https"
+  }
+}

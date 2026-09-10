@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VKU Field Survey</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0284c7">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+</head>
+<body>
+    <div class="header">
+        VKU Field Survey
+        <span id="sync-count" class="sync-badge" style="display:none">0 Pending</span>
+    </div>
+
+    <div id="connection-status" class="status-bar online">Checking connectivity...</div>
+
+    <div class="container">
+        <form id="survey-form" class="card">
+            <div class="form-group">
+                <label>Building</label>
+                <select id="building" required>
+                    <option value="">Select Building</option>
+                    <option value="A">Building A</option>
+                    <option value="B">Building B</option>
+                    <option value="C">Building C</option>
+                    <option value="D">Building D</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Floor & Room</label>
+                <div style="display: flex; gap: 0.5rem;">
+                    <input type="number" id="floor" placeholder="Floor" required>
+                    <input type="text" id="room" placeholder="Room #" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Category</label>
+                <select id="category" required>
+                    <option value="Hardware">Hardware</option>
+                    <option value="Projector">Projector</option>
+                    <option value="AC">AC</option>
+                    <option value="Electrical">Electrical</option>
+                    <option value="Furniture">Furniture</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Condition (1-5 Stars)</label>
+                <div class="rating" id="rating-stars">
+                    <span class="star" data-value="1">★</span>
+                    <span class="star" data-value="2">★</span>
+                    <span class="star" data-value="3">★</span>
+                    <span class="star" data-value="4">★</span>
+                    <span class="star" data-value="5">★</span>
+                </div>
+                <input type="hidden" id="rating" value="0" required>
+            </div>
+
+            <div class="form-group">
+                <label>Defect Notes</label>
+                <textarea id="notes" rows="3" placeholder="Describe issues..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Photo</label>
+                <button type="button" id="take-photo" class="btn btn-secondary">Capture Photo</button>
+                <img id="photo-preview" src="" alt="Preview">
+                <input type="hidden" id="photo-data">
+            </div>
+
+            <button type="submit" class="btn" id="submit-btn">Submit Survey</button>
+        </form>
+
+        <div id="draft-list" class="container" style="padding: 0;">
+            <!-- Drafts will appear here -->
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/localforage@1.10.0/dist/localforage.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
+    <!-- Capacitor Bridge (will be available when running in native) -->
+    <script src="capacitor.js"></script>
+    <script src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(reg => console.log('SW Registered'))
+                .catch(err => console.log('SW Failed', err));
+        }
+    </script>
+</body>
+</html>
